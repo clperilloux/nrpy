@@ -339,3 +339,8 @@ if __name__ == "__main__":
             f"{os.path.splitext(os.path.basename(__file__))[0]}_{ID_type}",
             results_dict,
         )
+
+    def TeukolskyWave (self) ->
+        """Set ADM quantities for an analytic linearized Teukolsky wave."""
+
+        return self.gammaDD, self.KDD
