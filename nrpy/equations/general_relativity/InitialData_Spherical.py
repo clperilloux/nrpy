@@ -340,7 +340,13 @@ if __name__ == "__main__":
             results_dict,
         )
 
-    def TeukolskyWave (self) ->
+    def TeukolskyWave (self):
         """Set ADM quantities for an analytic linearized Teukolsky wave."""
+
+        self.r, self.th, self.ph = sp.symbols("r th ph", real=True)
+        r, th, ph = self.r, self.th, self.ph
+        t = sp.symbols("t", real=True)
+        Amp, lam = sp.symbols("Amp lam", real=True)
+        u = t - r
 
         return self.gammaDD, self.KDD
