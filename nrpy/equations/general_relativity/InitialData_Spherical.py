@@ -343,10 +343,33 @@ if __name__ == "__main__":
     def TeukolskyWave (self):
         """Set ADM quantities for an analytic linearized Teukolsky wave."""
 
+        # Step 1: Define math symbols
         self.r, self.th, self.ph = sp.symbols("r th ph", real=True)
         r, th, ph = self.r, self.th, self.ph
         t = sp.symbols("t", real=True)
         Amp, lam = sp.symbols("Amp lam", real=True)
+
+        # Step 2: Define retarded time argument
         u = t - r
 
+        # Step 3: Define the base profile, exponential helper, and profile derivatives
+        E = sp.exp(-lam * u**2)
+
+        F0 = u * E
+        F1 = (1 - 2 * lam * u**2) * E
+        F2 = (-6 * lam * u + 4 * lam**2 * u**3) * E
+        F3 = (-6 * lam + 24 * lam**2 * u**2 - 8 * lam**3 * u**4) * E
+        F4 = (60 * lam**2 * u - 80 * lam**3 * u**3 + 16 * lam**4 * u**5) * E
+        F5 = (60 * lam**2 - 360 * lam**3 * u**2 + 240 * lam**4 * u**4 - 32 * lam**5 * u**6) * E
+
+        # Step 4: Calculate outgoing radial components
+        A_OUT = 24 * Amp * ((F2 / r**3) + (3 * F1 / r**4) + (3 * F0 / r**5))
+        B_OUT = -4 * Amp * ((F3 / r**2) + (3 * F2 / r**3) + (6 * F1 / r**4) + (6 * F0 / r**5))
+        C_OUT = 2 * Amp * ((F4 / r) + (2 * F3 / r**2) + (3 * F2 / r**3) + (3 * F1 / r**4) + (3 * F0 / r**5))
+        K_rad_OUT = -4 * Amp * ((F2 / r**2) + (3 * F1 / r**3) + (3 * F0 / r**4))
+        L_rad_OUT = 2 * Amp * ((F3 / r ) + (2 * F2 / r**2) + (3 * F1 / r**3) + (3 * F0 / r**4))
+
+        A = A_OUT
+        B = B_OUT
+        C = C_OUT
         return self.gammaDD, self.KDD
