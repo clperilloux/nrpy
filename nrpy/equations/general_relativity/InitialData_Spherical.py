@@ -343,16 +343,16 @@ if __name__ == "__main__":
     def TeukolskyWave (self):
         """Set ADM quantities for an analytic linearized Teukolsky wave."""
 
-        # Step 1: Define math symbols
+        # Define math symbols
         self.r, self.th, self.ph = sp.symbols("r th ph", real=True)
         r, th, ph = self.r, self.th, self.ph
         t = sp.symbols("t", real=True)
         Amp, lam = sp.symbols("Amp lam", real=True)
 
-        # Step 2: Define retarded time argument
+        # Define retarded time argument
         u = t - r
 
-        # Step 3: Define the base profile, exponential helper, and profile derivatives
+        # Define the base profile, exponential helper, and profile derivatives
         E = sp.exp(-lam * u**2)
 
         F0 = u * E
@@ -362,7 +362,7 @@ if __name__ == "__main__":
         F4 = (60 * lam**2 * u - 80 * lam**3 * u**3 + 16 * lam**4 * u**5) * E
         F5 = (60 * lam**2 - 360 * lam**3 * u**2 + 240 * lam**4 * u**4 - 32 * lam**5 * u**6) * E
 
-        # Step 4: Calculate outgoing radial components
+        # Calculate outgoing radial components
         A_OUT = 24 * Amp * ((F2 / r**3) + (3 * F1 / r**4) + (3 * F0 / r**5))
         B_OUT = -4 * Amp * ((F3 / r**2) + (3 * F2 / r**3) + (6 * F1 / r**4) + (6 * F0 / r**5))
         C_OUT = 2 * Amp * ((F4 / r) + (2 * F3 / r**2) + (3 * F2 / r**3) + (3 * F1 / r**4) + (3 * F0 / r**5))
@@ -372,4 +372,15 @@ if __name__ == "__main__":
         A = A_OUT
         B = B_OUT
         C = C_OUT
+
+        # Time derivatives for Extrinsic Curvature K_ij
+        A_dot = 24 * Amp * ((F3 / r**3) + (3 * F2 / r**4) + (3 * F1 / r**5))
+        B_dot = -4 * Amp * ((F4 / r**2) + (3 * F3 / r**3) + (6 * F2 / r**4) + (6 * F1 / r**5))
+        C_dot = 2 * Amp * ((F5 / r) + (2 * F4 / r**2) + (3 * F3 / r**3) + (3 * F2 / r**4) + (3 * F1 / r**5))
+
+        # Define Mode 20 angular terms
+        s = sp.sin(th)
+        c = sp.cos(th)
+        Y = 3 * c**2 - 1
+
         return self.gammaDD, self.KDD
