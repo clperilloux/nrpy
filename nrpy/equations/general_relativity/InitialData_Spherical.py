@@ -550,7 +550,7 @@ class InitialData_Spherical:
         elif mode == 21:
             KDD[0][0] = sp.sympify(0)
             KDD[0][1] = KDD[1][0] = (-sp.Rational(1, 2) * r * K_rad_dot_use * c * sp.sin(self.ph))
-            KDD[0][2] = KDD[2][0] = (-sp.Rational(1, 2) * r * s * * K_rad_dot_use * (c**2 - s**2) * sp.cos(self.ph))
+            KDD[0][2] = KDD[2][0] = (-sp.Rational(1, 2) * r * s * K_rad_dot_use * (c**2 - s**2) * sp.cos(self.ph))
             KDD[1][1] = (sp.Rational(1, 2) * r**2 * L_rad_dot_use * s * sp.sin(self.ph))
             KDD[1][2] = KDD[2][1] = (sp.Rational(1, 2) * r**2 * L_rad_dot_use * s**2 * c * sp.cos(self.ph))
             KDD[2][2] = (-sp.Rational(1, 2) * r**2 * s**2 * L_rad_dot_use * s * sp.sin(self.ph)) 
