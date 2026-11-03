@@ -79,7 +79,7 @@ class InitialData_Spherical:
         elif IDtype == "TeukolskyWave21":
             if override_gauge_with_standard:
                 raise ValueError("TeukolskyWave21 requires alpha=1 and betaU=0")
-            ID_defintes_gauge_quantities = True
+            ID_defines_gauge_quantities = True
             (
                 self.gammaDD,
                 self.KDD,
@@ -468,8 +468,8 @@ class InitialData_Spherical:
             A_dot_use = A_dot_IN
             B_dot_use = B_dot_IN
             C_dot_use = C_dot_IN
-            K_rad_use = K_rad_use_IN
-            L_rad_use = L_rad_use_IN
+            K_rad_use = K_rad_IN
+            L_rad_use = L_rad_IN
             K_rad_dot_use = K_rad_dot_IN
             L_rad_dot_use = L_rad_dot_IN
 
@@ -523,7 +523,7 @@ class InitialData_Spherical:
             gammaDD[0][1] = gammaDD[1][0] = r * K_rad_use * c * sp.sin(self.ph)
             gammaDD[0][2] = gammaDD[2][0] = (r * s * K_rad_use * (c**2 - s**2) * sp.cos(self.ph))
             gammaDD[1][1] = r**2 * (1 - L_rad_use * s * sp.sin(self.ph))
-            gammaDD[1][2] = gammaDD[2][1] = (-r**2 * L_rad_use * s**2 * c * sp.cos(self.ph))
+            gammaDD[1][2] = gammaDD[2][1] = -r**2 * L_rad_use * s**2 * c * sp.cos(self.ph)
             gammaDD[2][2] = r**2 * s**2 * (1 + L_rad_use * s * sp.sin(self.ph))
 
         # Assemble the mode-20 extrinsic curvature from the time derivatives
@@ -553,7 +553,7 @@ class InitialData_Spherical:
             KDD[0][2] = KDD[2][0] = (-sp.Rational(1, 2) * r * s * K_rad_dot_use * (c**2 - s**2) * sp.cos(self.ph))
             KDD[1][1] = (sp.Rational(1, 2) * r**2 * L_rad_dot_use * s * sp.sin(self.ph))
             KDD[1][2] = KDD[2][1] = (sp.Rational(1, 2) * r**2 * L_rad_dot_use * s**2 * c * sp.cos(self.ph))
-            KDD[2][2] = (-sp.Rational(1, 2) * r**2 * s**2 * L_rad_dot_use * s * sp.sin(self.ph)) 
+            KDD[2][2] = (-sp.Rational(1, 2) * r**2 * s**2 * L_rad_dot_use * s * sp.sin(self.ph))
 
         # Evaluate the wave on the chosen initial time slice
         gammaDD = [[component.subs(t, t0) for component in row] for row in gammaDD]
