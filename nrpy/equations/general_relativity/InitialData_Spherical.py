@@ -349,9 +349,10 @@ class InitialData_Spherical:
         Set ADM quantities for an analytic linearized Teukolsky wave.
 
         :param branch: Wave branch to construct: "regular", "outgoing", or "ingoing".
+        :param mode: Teukolsky-wave mode: 20 for even-parity (2,0), 21 for odd-parity (2,1), or 22 for even-parity (2,2).
         :return: A tuple containing the spatial metric gammaDD, extrinsic curvature KDD,
                 lapse alpha, shift betaU, and gauge quantity BU.
-        :raises ValueError: If the requested branch is unsupported.
+        :raises ValueError: If the requested branch or mode is unsupported.
         """
         # Validate the requested Teukolsky mode
         if mode not in (20, 21, 22):
