@@ -382,7 +382,9 @@ class InitialData_Spherical:
         F2 = (-6 * lam * u + 4 * lam**2 * u**3) * E
         F3 = (-6 * lam + 24 * lam**2 * u**2 - 8 * lam**3 * u**4) * E
         F4 = (60 * lam**2 * u - 80 * lam**3 * u**3 + 16 * lam**4 * u**5) * E
-        F5 = (60 * lam**2 - 360 * lam**3 * u**2 + 240 * lam**4 * u**4 - 32 * lam**5 * u**6) * E
+        F5 = (
+            60 * lam**2 - 360 * lam**3 * u**2 + 240 * lam**4 * u**4 - 32 * lam**5 * u**6
+        ) * E
 
         # Evaluate derivatives at v
         E_IN = sp.exp(-lam * v**2)
@@ -392,12 +394,28 @@ class InitialData_Spherical:
         p2 = (-6 * lam * v + 4 * lam**2 * v**3) * E_IN
         p3 = (-6 * lam + 24 * lam**2 * v**2 - 8 * lam**3 * v**4) * E_IN
         p4 = (60 * lam**2 * v - 80 * lam**3 * v**3 + 16 * lam**4 * v**5) * E_IN
-        p5 = (60 * lam**2 - 360 * lam**3 * v**2 + 240 * lam**4 * v**4 - 32 * lam**5 * v**6) * E_IN
+        p5 = (
+            60 * lam**2 - 360 * lam**3 * v**2 + 240 * lam**4 * v**4 - 32 * lam**5 * v**6
+        ) * E_IN
 
         # Calculate outgoing radial components
         A_OUT = 24 * Amp * ((F2 / r**3) + (3 * F1 / r**4) + (3 * F0 / r**5))
-        B_OUT = (-4 * Amp * ((F3 / r**2) + (3 * F2 / r**3) + (6 * F1 / r**4) + (6 * F0 / r**5)))
-        C_OUT = (2 * Amp * ((F4 / r) + (2 * F3 / r**2) + (3 * F2 / r**3) + (3 * F1 / r**4) + (3 * F0 / r**5)))
+        B_OUT = (
+            -4
+            * Amp
+            * ((F3 / r**2) + (3 * F2 / r**3) + (6 * F1 / r**4) + (6 * F0 / r**5))
+        )
+        C_OUT = (
+            2
+            * Amp
+            * (
+                (F4 / r)
+                + (2 * F3 / r**2)
+                + (3 * F2 / r**3)
+                + (3 * F1 / r**4)
+                + (3 * F0 / r**5)
+            )
+        )
 
         # Calculate out-going odd-parity components for mode 21
         K_rad_OUT = -4 * Amp * (F2 / r**2 + 3 * F1 / r**3 + 3 * F0 / r**4)
@@ -405,8 +423,22 @@ class InitialData_Spherical:
 
         # Calculate ingoing radial components
         A_IN = 24 * Amp * ((-p2 / r**3) + (3 * p1 / r**4) - (3 * p0 / r**5))
-        B_IN = (4 * Amp * ((-p3 / r**2) + (3 * p2 / r**3) - (6 * p1 / r**4) + (6 * p0 / r**5)))
-        C_IN = (2 * Amp * ((-p4 / r) + (2 * p3 / r**2) - (3 * p2 / r**3) + (3 * p1 / r**4) - (3 * p0 / r**5)))
+        B_IN = (
+            4
+            * Amp
+            * ((-p3 / r**2) + (3 * p2 / r**3) - (6 * p1 / r**4) + (6 * p0 / r**5))
+        )
+        C_IN = (
+            2
+            * Amp
+            * (
+                (-p4 / r)
+                + (2 * p3 / r**2)
+                - (3 * p2 / r**3)
+                + (3 * p1 / r**4)
+                - (3 * p0 / r**5)
+            )
+        )
 
         # Calculate ingoing odd-parity radial components for mode 21
         K_rad_IN = 4 * Amp * (p2 / r**2 - 3 * p1 / r**3 + 3 * p0 / r**4)
@@ -414,21 +446,53 @@ class InitialData_Spherical:
 
         # Time derivatives for outgoing wave
         A_dot_OUT = 24 * Amp * ((F3 / r**3) + (3 * F2 / r**4) + (3 * F1 / r**5))
-        B_dot_OUT = (-4 * Amp * ((F4 / r**2) + (3 * F3 / r**3) + (6 * F2 / r**4) + (6 * F1 / r**5)))
-        C_dot_OUT = (2 * Amp * ((F5 / r) + (2 * F4 / r**2) + (3 * F3 / r**3) + (3 * F2 / r**4) + (3 * F1 / r**5)))
+        B_dot_OUT = (
+            -4
+            * Amp
+            * ((F4 / r**2) + (3 * F3 / r**3) + (6 * F2 / r**4) + (6 * F1 / r**5))
+        )
+        C_dot_OUT = (
+            2
+            * Amp
+            * (
+                (F5 / r)
+                + (2 * F4 / r**2)
+                + (3 * F3 / r**3)
+                + (3 * F2 / r**4)
+                + (3 * F1 / r**5)
+            )
+        )
 
         # Time derivatives for outgoing odd-parity radial components
         K_rad_dot_OUT = -4 * Amp * (F3 / r**2 + 3 * F2 / r**3 + 3 * F1 / r**4)
-        L_rad_dot_OUT = 2 * Amp * (F4 / r + 2 * F3 / r**2 + 3 * F2 / r**3 + 3 * F1 / r**4)
+        L_rad_dot_OUT = (
+            2 * Amp * (F4 / r + 2 * F3 / r**2 + 3 * F2 / r**3 + 3 * F1 / r**4)
+        )
 
         # Time derivatives for ingoing wave
         A_dot_IN = 24 * Amp * ((-p3 / r**3) + (3 * p2 / r**4) - (3 * p1 / r**5))
-        B_dot_IN = (4 * Amp * ((-p4 / r**2) + (3 * p3 / r**3) - (6 * p2 / r**4) + (6 * p1 / r**5)))
-        C_dot_IN = (2 * Amp * ((-p5 / r) + (2 * p4 / r**2) - (3 * p3 / r**3) + (3 * p2 / r**4) - (3 * p1 / r**5)))
+        B_dot_IN = (
+            4
+            * Amp
+            * ((-p4 / r**2) + (3 * p3 / r**3) - (6 * p2 / r**4) + (6 * p1 / r**5))
+        )
+        C_dot_IN = (
+            2
+            * Amp
+            * (
+                (-p5 / r)
+                + (2 * p4 / r**2)
+                - (3 * p3 / r**3)
+                + (3 * p2 / r**4)
+                - (3 * p1 / r**5)
+            )
+        )
 
         # Time derivatives for ingoing odd-parity radial components
         K_rad_dot_IN = 4 * Amp * (p3 / r**2 - 3 * p2 / r**3 + 3 * p1 / r**4)
-        L_rad_dot_IN = 2 * Amp * (p4 / r - 2 * p3 / r**2 + 3 * p2 / r**3 - 3 * p1 / r**4)
+        L_rad_dot_IN = (
+            2 * Amp * (p4 / r - 2 * p3 / r**2 + 3 * p2 / r**3 - 3 * p1 / r**4)
+        )
 
         # Regular radial components = outgoing + ingoing
         A_REG = A_OUT + A_IN
@@ -515,15 +579,21 @@ class InitialData_Spherical:
             gammaDD[0][2] = gammaDD[2][0] = -2 * r * B_use * s**2 * Q
             gammaDD[1][1] = r**2 * (1 - A_use * s**2 * P / 2 + C_use * (1 + c**2) * P)
             gammaDD[1][2] = gammaDD[2][1] = -2 * r**2 * C_use * s * c * Q
-            gammaDD[2][2] = r**2 * s**2 * (1 - A_use * s**2 * P / 2 - C_use * (1 + c**2) * P)
+            gammaDD[2][2] = (
+                r**2 * s**2 * (1 - A_use * s**2 * P / 2 - C_use * (1 + c**2) * P)
+            )
 
         # Assemble the mode-21 odd-parity spatial metric
         elif mode == 21:
             gammaDD[0][0] = sp.sympify(1)
             gammaDD[0][1] = gammaDD[1][0] = r * K_rad_use * c * sp.sin(self.ph)
-            gammaDD[0][2] = gammaDD[2][0] = (r * s * K_rad_use * (c**2 - s**2) * sp.cos(self.ph))
+            gammaDD[0][2] = gammaDD[2][0] = (
+                r * s * K_rad_use * (c**2 - s**2) * sp.cos(self.ph)
+            )
             gammaDD[1][1] = r**2 * (1 - L_rad_use * s * sp.sin(self.ph))
-            gammaDD[1][2] = gammaDD[2][1] = -r**2 * L_rad_use * s**2 * c * sp.cos(self.ph)
+            gammaDD[1][2] = gammaDD[2][1] = (
+                -(r**2) * L_rad_use * s**2 * c * sp.cos(self.ph)
+            )
             gammaDD[2][2] = r**2 * s**2 * (1 + L_rad_use * s * sp.sin(self.ph))
 
         # Assemble the mode-20 extrinsic curvature from the time derivatives
@@ -533,27 +603,59 @@ class InitialData_Spherical:
             KDD[0][0] = -sp.Rational(1, 2) * A_dot_use * Y
             KDD[0][1] = KDD[1][0] = 3 * r * B_dot_use * s * c
             KDD[0][2] = KDD[2][0] = sp.sympify(0)
-            KDD[1][1] = r**2 * (sp.Rational(1, 4) * A_dot_use * Y - sp.Rational(3, 2) * C_dot_use * s**2)
+            KDD[1][1] = r**2 * (
+                sp.Rational(1, 4) * A_dot_use * Y - sp.Rational(3, 2) * C_dot_use * s**2
+            )
             KDD[1][2] = KDD[2][1] = sp.sympify(0)
-            KDD[2][2] = (r**2 * s**2 * (sp.Rational(1, 4) * A_dot_use * Y + sp.Rational(3, 2) * C_dot_use * s**2))
+            KDD[2][2] = (
+                r**2
+                * s**2
+                * (
+                    sp.Rational(1, 4) * A_dot_use * Y
+                    + sp.Rational(3, 2) * C_dot_use * s**2
+                )
+            )
 
         # Assemble the mode-22 extrinsic curvature from the time derivatives
         elif mode == 22:
             KDD[0][0] = -sp.Rational(1, 2) * A_dot_use * s**2 * P
             KDD[0][1] = KDD[1][0] = -r * B_dot_use * s * c * P
             KDD[0][2] = KDD[2][0] = r * B_dot_use * s**2 * Q
-            KDD[1][1] = r**2 * (sp.Rational(1, 4) * A_dot_use * s**2 * P - sp.Rational(1, 2) * C_dot_use * (1 + c**2) * P)
+            KDD[1][1] = r**2 * (
+                sp.Rational(1, 4) * A_dot_use * s**2 * P
+                - sp.Rational(1, 2) * C_dot_use * (1 + c**2) * P
+            )
             KDD[1][2] = KDD[2][1] = r**2 * C_dot_use * s * c * Q
-            KDD[2][2] = r**2 * s**2 * (sp.Rational(1, 4) * A_dot_use * s**2 * P + sp.Rational(1, 2) * C_dot_use * (1 + c**2) * P)
+            KDD[2][2] = (
+                r**2
+                * s**2
+                * (
+                    sp.Rational(1, 4) * A_dot_use * s**2 * P
+                    + sp.Rational(1, 2) * C_dot_use * (1 + c**2) * P
+                )
+            )
 
         # Assemble the mode-21 odd-parity extrinsic curvature
         elif mode == 21:
             KDD[0][0] = sp.sympify(0)
-            KDD[0][1] = KDD[1][0] = (-sp.Rational(1, 2) * r * K_rad_dot_use * c * sp.sin(self.ph))
-            KDD[0][2] = KDD[2][0] = (-sp.Rational(1, 2) * r * s * K_rad_dot_use * (c**2 - s**2) * sp.cos(self.ph))
-            KDD[1][1] = (sp.Rational(1, 2) * r**2 * L_rad_dot_use * s * sp.sin(self.ph))
-            KDD[1][2] = KDD[2][1] = (sp.Rational(1, 2) * r**2 * L_rad_dot_use * s**2 * c * sp.cos(self.ph))
-            KDD[2][2] = (-sp.Rational(1, 2) * r**2 * s**2 * L_rad_dot_use * s * sp.sin(self.ph))
+            KDD[0][1] = KDD[1][0] = (
+                -sp.Rational(1, 2) * r * K_rad_dot_use * c * sp.sin(self.ph)
+            )
+            KDD[0][2] = KDD[2][0] = (
+                -sp.Rational(1, 2)
+                * r
+                * s
+                * K_rad_dot_use
+                * (c**2 - s**2)
+                * sp.cos(self.ph)
+            )
+            KDD[1][1] = sp.Rational(1, 2) * r**2 * L_rad_dot_use * s * sp.sin(self.ph)
+            KDD[1][2] = KDD[2][1] = (
+                sp.Rational(1, 2) * r**2 * L_rad_dot_use * s**2 * c * sp.cos(self.ph)
+            )
+            KDD[2][2] = (
+                -sp.Rational(1, 2) * r**2 * s**2 * L_rad_dot_use * s * sp.sin(self.ph)
+            )
 
         # Evaluate the wave on the chosen initial time slice
         gammaDD = [[component.subs(t, t0) for component in row] for row in gammaDD]
@@ -589,7 +691,6 @@ if __name__ == "__main__":
         "TeukolskyWave",
         "TeukolskyWave21",
         "TeukolskyWave22",
-
     ]:
         ID = InitialData_Spherical(ID_type)
         results_dict = ve.process_dictionary_of_expressions(
