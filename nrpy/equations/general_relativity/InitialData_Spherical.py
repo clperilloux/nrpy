@@ -586,6 +586,10 @@ if __name__ == "__main__":
         "UIUCBlackHole",
         "StaticTrumpet",
         "OffsetKerrSchild",
+        "TeukolskyWave",
+        "TeukolskyWave21",
+        "TeukolskyWave22",
+
     ]:
         ID = InitialData_Spherical(ID_type)
         results_dict = ve.process_dictionary_of_expressions(
